@@ -16,28 +16,21 @@
             text-align: center;
             color: #38bdf8;
             margin-bottom: 15px;
+            font-size: 20px;
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
         }
-        .video-container {
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%;
-            background: #000;
-            border-radius: 12px;
-            overflow: hidden;
+        .info-box {
+            background: #1e293b;
+            border: 1px solid #334155;
+            padding: 12px;
+            border-radius: 10px;
+            text-align: center;
             margin-bottom: 15px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-        }
-        .video-container iframe, .video-container audio {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
+            font-size: 14px;
+            color: #38bdf8;
         }
         .categories {
             display: flex;
@@ -72,12 +65,14 @@
         }
         .channel-card {
             background: #1e293b;
-            padding: 15px;
+            padding: 18px 15px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;
             transition: 0.2s;
             border: 1px solid #334155;
+            text-decoration: none;
+            display: block;
         }
         .channel-card:active {
             background: #334155;
@@ -103,9 +98,8 @@
 <div class="container">
     <h2>Cennet Vatan TV</h2>
     
-    <!-- Oynatıcı Alanı -->
-    <div class="video-container" id="playerBox">
-        <iframe id="videoPlayer" src="https://www.youtube.com/embed/live_stream?channel=UCTRT1" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    <div class="info-box">
+        İzlemek istediğin kanala tıkla, yayın direkt tam ekran olarak açılsın!
     </div>
 
     <!-- Kategori Butonları -->
@@ -116,114 +110,77 @@
         <button class="cat-btn" onclick="filterCategory('belgesel')">Belgesel</button>
         <button class="cat-btn" onclick="filterCategory('cocuk')">Çocuk</button>
         <button class="cat-btn" onclick="filterCategory('muzik')">Müzik</button>
-        <button class="cat-btn" onclick="filterCategory('radyo')">Doğa & Radyo</button>
     </div>
 
-    <!-- Kanal Listesi -->
+    <!-- Kanal Listesi (Doğrudan çalışan resmi kaynaklar) -->
     <div class="channels-grid" id="channelList">
         <!-- ULUSAL -->
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRT1', 'video')">
+        <a class="channel-card" data-cat="ulusal" href="https://www.trt.live/anasayfa" target="_blank">
             <h3>TRT 1</h3>
-            <p>Ulusal</p>
-        </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=ShowTV', 'video')">
+            <p>Canlı Yayın</p>
+        </a>
+        <a class="channel-card" data-cat="ulusal" href="https://www.showtv.com.tr/canli-yayin/showtv" target="_blank">
             <h3>SHOW TV</h3>
-            <p>Ulusal</p>
-        </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=KanalD', 'video')">
+            <p>Canlı Yayın</p>
+        </a>
+        <a class="channel-card" data-cat="ulusal" href="https://www.kanald.com.tr/canli-yayin" target="_blank">
             <h3>Kanal D</h3>
-            <p>Ulusal</p>
-        </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=StarTV', 'video')">
+            <p>Canlı Yayın</p>
+        </a>
+        <a class="channel-card" data-cat="ulusal" href="https://www.startv.com.tr/canli-yayin" target="_blank">
             <h3>Star TV</h3>
-            <p>Ulusal</p>
-        </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=AtvTurkiye', 'video')">
+            <p>Canlı Yayın</p>
+        </a>
+        <a class="channel-card" data-cat="ulusal" href="https://www.atv.com.tr/canli-yayin" target="_blank">
             <h3>ATV</h3>
-            <p>Ulusal</p>
-        </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=NowTurkiye', 'video')">
+            <p>Canlı Yayın</p>
+        </a>
+        <a class="channel-card" data-cat="ulusal" href="https://www.nowtv.com.tr/canli-yayin" target="_blank">
             <h3>NOW TV</h3>
-            <p>Ulusal</p>
-        </div>
+            <p>Canlı Yayın</p>
+        </a>
 
         <!-- HABER -->
-        <div class="channel-card section-hidden" data-cat="haber" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTHaber', 'video')">
+        <a class="channel-card section-hidden" data-cat="haber" href="https://www.trt.live/anasayfa" target="_blank">
             <h3>TRT Haber</h3>
-            <p>Haber</p>
-        </div>
-        <div class="channel-card section-hidden" data-cat="haber" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=CNNTURK', 'video')">
+            <p>Canlı Yayın</p>
+        </a>
+        <a class="channel-card section-hidden" data-cat="haber" href="https://www.cnnturk.com/canli-yayin" target="_blank">
             <h3>CNN Türk</h3>
-            <p>Haber</p>
-        </div>
+            <p>Canlı Yayın</p>
+        </a>
 
         <!-- SPOR -->
-        <div class="channel-card section-hidden" data-cat="spor" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTSpor', 'video')">
+        <a class="channel-card section-hidden" data-cat="spor" href="https://www.trt.live/anasayfa" target="_blank">
             <h3>TRT Spor</h3>
-            <p>Spor</p>
-        </div>
+            <p>Canlı Yayın</p>
+        </a>
 
         <!-- BELGESEL -->
-        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTBelgesel', 'video')">
+        <a class="channel-card section-hidden" data-cat="belgesel" href="https://www.trt.live/anasayfa" target="_blank">
             <h3>TRT Belgesel</h3>
-            <p>Belgesel</p>
-        </div>
-        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=NatGeoTurkiye', 'video')">
-            <h3>National Geographic</h3>
-            <p>Belgesel</p>
-        </div>
+            <p>Canlı Yayın</p>
+        </a>
 
         <!-- ÇOCUK -->
-        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTCocuk', 'video')">
+        <a class="channel-card section-hidden" data-cat="cocuk" href="https://www.trt.live/anasayfa" target="_blank">
             <h3>TRT Çocuk</h3>
-            <p>Çocuk TV</p>
-        </div>
-        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=MinikaCocukk', 'video')">
+            <p>Canlı Yayın</p>
+        </a>
+        <a class="channel-card section-hidden" data-cat="cocuk" href="https://www.minikago.com.tr/" target="_blank">
             <h3>Minika Go</h3>
-            <p>Çocuk TV</p>
-        </div>
-        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://www.youtube.com/embed/videoseries?list=PL_Xv9v8v7v6v5v4v3v2v1', 'video')">
-            <h3>Niloya</h3>
-            <p>Çizgi Film</p>
-        </div>
-        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://www.youtube.com/embed/videoseries?list=PL-x5_8v7v6v5v4v3v2v1', 'video')">
-            <h3>Maşa ile Koca Ayı</h3>
-            <p>Çizgi Film</p>
-        </div>
-        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://www.youtube.com/embed/videoseries?list=PL_KirmiziBalik', 'video')">
-            <h3>Kırmızı Balık & Şarkılar</h3>
-            <p>Çocuk Müzik</p>
-        </div>
+            <p>Canlı Yayın</p>
+        </a>
 
         <!-- MÜZİK -->
-        <div class="channel-card section-hidden" data-cat="muzik" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTMuzik', 'video')">
+        <a class="channel-card section-hidden" data-cat="muzik" href="https://www.trt.live/anasayfa" target="_blank">
             <h3>TRT Müzik</h3>
-            <p>Müzik</p>
-        </div>
-
-        <!-- RADYO & DOĞA SESLERİ -->
-        <div class="channel-card section-hidden" data-cat="radyo" onclick="playStream('https://stream.zeno.fm/f3wvbbqmdg8uv', 'audio')">
-            <h3>Orman & Kuş Sesleri</h3>
-            <p>Doğa Radyosu</p>
-        </div>
-        <div class="channel-card section-hidden" data-cat="radyo" onclick="playStream('https://radio.trtturk.gov.tr/master.m3u8', 'audio')">
-            <h3>TRT Türkü</h3>
-            <p>Radyo</p>
-        </div>
+            <p>Canlı Yayın</p>
+        </a>
     </div>
 </div>
 
 <script>
-    function playStream(url, type) {
-        const playerBox = document.getElementById('playerBox');
-        
-        if (type === 'video') {
-            playerBox.innerHTML = `<iframe id="videoPlayer" src="${url}" allowfullscreen allow="autoplay; encrypted-media" style="width:100%; height:100%; border:none;"></iframe>`;
-        } else if (type === 'audio') {
-            playerBox.innerHTML = `<audio controls autoplay style="width:100%; height:100%; margin-top:25%;"><source src="${url}" type="audio/mpeg">Tarayıcınız desteklemiyor.</audio>`;
-        }
-    }
-
     function filterCategory(cat) {
         document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
         event.target.classList.add('active');
