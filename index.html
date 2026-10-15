@@ -24,12 +24,13 @@
         .info-box {
             background: #1e293b;
             border: 1px solid #334155;
-            padding: 12px;
+            padding: 15px;
             border-radius: 10px;
             text-align: center;
             margin-bottom: 20px;
-            font-size: 14px;
+            font-size: 15px;
             color: #38bdf8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
         }
         .categories {
             display: flex;
@@ -45,9 +46,9 @@
             background: #1e293b;
             color: #94a3b8;
             border: 1px solid #334155;
-            padding: 8px 14px;
+            padding: 10px 16px;
             border-radius: 20px;
-            font-size: 13px;
+            font-size: 14px;
             cursor: pointer;
             white-space: nowrap;
             transition: 0.2s;
@@ -64,7 +65,7 @@
         }
         .channel-card {
             background: #1e293b;
-            padding: 20px 15px;
+            padding: 22px 15px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;
@@ -73,6 +74,7 @@
             text-decoration: none;
             display: block;
             color: #fff;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
         }
         .channel-card:active {
             background: #334155;
@@ -99,7 +101,7 @@
     <h2>Cennet Vatan TV</h2>
     
     <div class="info-box">
-        İzlemek istediğin yayına tıkla, doğrudan açılsın!
+        İzlemek istediğin yayına tıkla, doğrudan harici oynatıcıda açılsın!
     </div>
 
     <!-- Kategori Butonları -->
@@ -109,34 +111,34 @@
         <button class="cat-btn" onclick="filterCategory('muzik')">Müzik & Radyo</button>
     </div>
 
-    <!-- Kanal Listesi -->
+    <!-- Kanal Listesi (Kesin Çözüm Harici Bağlantılar) -->
     <div class="channels-grid" id="channelList">
         <!-- ÇOCUK -->
-        <a class="channel-card" data-cat="cocuk" href="https://www.youtube.com/watch?v=LXb3EKWsInQ" target="_blank">
+        <a class="channel-card" data-cat="cocuk" href="https://www.youtube.com/watch?v=LXb3EKWsInQ">
             <h3>Çocuk Animasyon</h3>
             <p>Hemen İzle</p>
         </a>
-        <a class="channel-card" data-cat="cocuk" href="https://www.youtube.com/watch?v=5qap5aO4i9A" target="_blank">
+        <a class="channel-card" data-cat="cocuk" href="https://www.youtube.com/watch?v=5qap5aO4i9A">
             <h3>Sevimli Masallar</h3>
             <p>Hemen İzle</p>
         </a>
 
         <!-- BELGESEL & DOĞA -->
-        <a class="channel-card section-hidden" data-cat="belgesel" href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank">
+        <a class="channel-card section-hidden" data-cat="belgesel" href="https://www.youtube.com/watch?v=jfKfPfyJRdk">
             <h3>4K Doğa Manzaraları</h3>
             <p>Hemen İzle</p>
         </a>
-        <a class="channel-card section-hidden" data-cat="belgesel" href="https://www.youtube.com/watch?v=1la4QzGeaaQ" target="_blank">
+        <a class="channel-card section-hidden" data-cat="belgesel" href="https://www.youtube.com/watch?v=1la4QzGeaaQ">
             <h3>Dünya Kameraları</h3>
             <p>Hemen İzle</p>
         </a>
 
         <!-- MÜZİK & RADYO -->
-        <a class="channel-card section-hidden" data-cat="muzik" href="https://www.youtube.com/watch?v=jfKfPfyJRdk" target="_blank">
+        <a class="channel-card section-hidden" data-cat="muzik" href="https://www.youtube.com/watch?v=jfKfPfyJRdk">
             <h3>Lofi Hip Hop Radio</h3>
             <p>Müzik Akışı</p>
         </a>
-        <a class="channel-card section-hidden" data-cat="muzik" href="https://stream.zeno.fm/f3wvbbqmdg8uv" target="_blank">
+        <a class="channel-card section-hidden" data-cat="muzik" href="https://stream.zeno.fm/f3wvbbqmdg8uv">
             <h3>Doğa Radyosu</h3>
             <p>Ses Akışı</p>
         </a>
