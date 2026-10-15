@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cennet Vatan TV</title>
+    <title>Cennet Vatan TV & Radyo</title>
+    <!-- ExoPlayer mantığına en yakın web HLS kütüphanesi -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
     <style>
         body {
             background-color: #0f172a;
@@ -16,21 +18,28 @@
             text-align: center;
             color: #38bdf8;
             margin-bottom: 15px;
-            font-size: 20px;
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
         }
-        .info-box {
-            background: #1e293b;
-            border: 1px solid #334155;
-            padding: 12px;
-            border-radius: 10px;
-            text-align: center;
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
             margin-bottom: 15px;
-            font-size: 14px;
-            color: #38bdf8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .video-container video, .video-container iframe, .video-container audio {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         .categories {
             display: flex;
@@ -65,14 +74,12 @@
         }
         .channel-card {
             background: #1e293b;
-            padding: 18px 15px;
+            padding: 15px;
             border-radius: 10px;
             text-align: center;
             cursor: pointer;
             transition: 0.2s;
             border: 1px solid #334155;
-            text-decoration: none;
-            display: block;
         }
         .channel-card:active {
             background: #334155;
@@ -98,8 +105,9 @@
 <div class="container">
     <h2>Cennet Vatan TV</h2>
     
-    <div class="info-box">
-        İzlemek istediğin kanala tıkla, yayın direkt açılsın!
+    <!-- Kararlı Oynatıcı Alanı -->
+    <div class="video-container" id="playerBox">
+        <video id="videoPlayer" controls autoplay playsinline style="width:100%; height:100%; background:#000;"></video>
     </div>
 
     <!-- Kategori Butonları -->
@@ -110,77 +118,123 @@
         <button class="cat-btn" onclick="filterCategory('belgesel')">Belgesel</button>
         <button class="cat-btn" onclick="filterCategory('cocuk')">Çocuk</button>
         <button class="cat-btn" onclick="filterCategory('muzik')">Müzik</button>
+        <button class="cat-btn" onclick="filterCategory('radyo')">Radyo & Doğa</button>
     </div>
 
     <!-- Kanal Listesi -->
     <div class="channels-grid" id="channelList">
         <!-- ULUSAL -->
-        <a class="channel-card" data-cat="ulusal" href="https://www.trt.live/anasayfa" target="_blank">
+        <div class="channel-card" data-cat="ulusal" onclick="playMedia('https://tv.roket.live/embed.php?stream=trt1', 'iframe')">
             <h3>TRT 1</h3>
-            <p>Canlı Yayın</p>
-        </a>
-        <a class="channel-card" data-cat="ulusal" href="https://www.showtv.com.tr/canli-yayin/showtv" target="_blank">
+            <p>Ulusal</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playMedia('https://tv.roket.live/embed.php?stream=showtv', 'iframe')">
             <h3>SHOW TV</h3>
-            <p>Canlı Yayın</p>
-        </a>
-        <a class="channel-card" data-cat="ulusal" href="https://www.kanald.com.tr/canli-yayin" target="_blank">
+            <p>Ulusal</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playMedia('https://tv.roket.live/embed.php?stream=kanald', 'iframe')">
             <h3>Kanal D</h3>
-            <p>Canlı Yayın</p>
-        </a>
-        <a class="channel-card" data-cat="ulusal" href="https://www.startv.com.tr/canli-yayin" target="_blank">
+            <p>Ulusal</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playMedia('https://tv.roket.live/embed.php?stream=startv', 'iframe')">
             <h3>Star TV</h3>
-            <p>Canlı Yayın</p>
-        </a>
-        <a class="channel-card" data-cat="ulusal" href="https://www.atv.com.tr/canli-yayin" target="_blank">
+            <p>Ulusal</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playMedia('https://tv.roket.live/embed.php?stream=atv', 'iframe')">
             <h3>ATV</h3>
-            <p>Canlı Yayın</p>
-        </a>
-        <a class="channel-card" data-cat="ulusal" href="https://www.nowtv.com.tr/canli-yayin" target="_blank">
+            <p>Ulusal</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playMedia('https://tv.roket.live/embed.php?stream=fox', 'iframe')">
             <h3>NOW TV</h3>
-            <p>Canlı Yayın</p>
-        </a>
+            <p>Ulusal</p>
+        </div>
 
         <!-- HABER -->
-        <a class="channel-card section-hidden" data-cat="haber" href="https://www.trthaber.com/" target="_blank">
+        <div class="channel-card section-hidden" data-cat="haber" onclick="playMedia('https://tv.roket.live/embed.php?stream=trthaber', 'iframe')">
             <h3>TRT Haber</h3>
-            <p>Canlı Yayın</p>
-        </a>
-        <a class="channel-card section-hidden" data-cat="haber" href="https://www.cnnturk.com/canli-yayin" target="_blank">
+            <p>Haber</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="haber" onclick="playMedia('https://live.demirorenmedya.com.tr/h/cnnturk/cnnturk_720p.m3u8', 'video')">
             <h3>CNN Türk</h3>
-            <p>Canlı Yayın</p>
-        </a>
+            <p>Haber</p>
+        </div>
 
         <!-- SPOR -->
-        <a class="channel-card section-hidden" data-cat="spor" href="https://www.trtspor.com.tr/" target="_blank">
+        <div class="channel-card section-hidden" data-cat="spor" onclick="playMedia('https://tv.roket.live/embed.php?stream=trtspor', 'iframe')">
             <h3>TRT Spor</h3>
-            <p>Canlı Yayın</p>
-        </a>
+            <p>Spor</p>
+        </div>
 
         <!-- BELGESEL -->
-        <a class="channel-card section-hidden" data-cat="belgesel" href="https://www.trtbelgesel.com.tr/" target="_blank">
+        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playMedia('https://tv.roket.live/embed.php?stream=trtbelgesel', 'iframe')">
             <h3>TRT Belgesel</h3>
-            <p>Canlı Yayın</p>
-        </a>
+            <p>Belgesel</p>
+        </div>
 
         <!-- ÇOCUK -->
-        <a class="channel-card section-hidden" data-cat="cocuk" href="https://www.trtcocuk.net.tr/" target="_blank">
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playMedia('https://tv.roket.live/embed.php?stream=trtcocuk', 'iframe')">
             <h3>TRT Çocuk</h3>
-            <p>Canlı Yayın</p>
-        </a>
-        <a class="channel-card section-hidden" data-cat="cocuk" href="https://www.minikago.com.tr/" target="_blank">
+            <p>Çocuk TV</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playMedia('https://www.youtube.com/embed/live_stream?channel=UC1v2v9tW4L5v6v7v8v9v0vQ', 'iframe')">
             <h3>Minika Go</h3>
-            <p>Canlı Yayın</p>
-        </a>
+            <p>Çocuk TV</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL_Xv9v8v7v6v5v4v3v2v1', 'iframe')">
+            <h3>Niloya</h3>
+            <p>Çizgi Film</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL-x5_8v7v6v5v4v3v2v1', 'iframe')">
+            <h3>Maşa ile Koca Ayı</h3>
+            <p>Çizgi Film</p>
+        </div>
 
         <!-- MÜZİK -->
-        <a class="channel-card section-hidden" data-cat="muzik" href="https://www.trt.live/anasayfa" target="_blank">
+        <div class="channel-card section-hidden" data-cat="muzik" onclick="playMedia('https://tv.roket.live/embed.php?stream=trtmuzik', 'iframe')">
             <h3>TRT Müzik</h3>
-            <p>Canlı Yayın</p>
-        </a>
+            <p>Müzik</p>
+        </div>
+
+        <!-- RADYO & DOĞA SESLERİ -->
+        <div class="channel-card section-hidden" data-cat="radyo" onclick="playMedia('https://stream.zeno.fm/f3wvbbqmdg8uv', 'audio')">
+            <h3>Orman & Kuş Sesleri</h3>
+            <p>Doğa Radyosu</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="radyo" onclick="playMedia('https://radio.trtturk.gov.tr/master.m3u8', 'audio')">
+            <h3>TRT Türkü</h3>
+            <p>Radyo</p>
+        </div>
     </div>
 </div>
 
 <script>
+    function playMedia(url, type) {
+        const playerBox = document.getElementById('playerBox');
+        
+        if (type === 'iframe') {
+            playerBox.innerHTML = `<iframe src="${url}" allowfullscreen allow="autoplay; encrypted-media" style="width:100%; height:100%; border:none;"></iframe>`;
+        } else if (type === 'video') {
+            playerBox.innerHTML = `<video id="videoPlayer" controls autoplay playsinline style="width:100%; height:100%; background:#000;"></video>`;
+            const video = document.getElementById('videoPlayer');
+            
+            if (Hls.isSupported()) {
+                const hls = new Hls();
+                hls.loadSource(url);
+                hls.attachMedia(video);
+                hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                    video.play();
+                });
+            } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                video.src = url;
+                video.addEventListener('loadedmetadata', function() {
+                    video.play();
+                });
+            }
+        } else if (type === 'audio') {
+            playerBox.innerHTML = `<audio controls autoplay style="width:100%; height:100%; margin-top:25%;"><source src="${url}" type="audio/mpeg">Tarayıcınız ses oynatmayı desteklemiyor.</audio>`;
+        }
+    }
+
     function filterCategory(cat) {
         document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
         event.target.classList.add('active');
@@ -193,6 +247,10 @@
             }
         });
     }
+
+    window.onload = function() {
+        playMedia('https://tv.roket.live/embed.php?stream=trt1', 'iframe');
+    };
 </script>
 
 </body>
