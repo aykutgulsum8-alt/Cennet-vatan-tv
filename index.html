@@ -50,5 +50,194 @@
       position: relative;
       aspect-ratio: 16 / 9;
       max-height: 40vh;
-       flex-shrink: 0;
-      border-bottom: 2px solid #1f2937
+      flex-shrink: 0;
+      border-bottom: 2px solid #1f2937;
+    }
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .controls-bar {
+      padding: 10px;
+      background: #111827;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      flex-shrink: 0;
+      border-bottom: 1px solid #1f2937;
+    }
+    .cat-btn {
+      background: #1f2937;
+      color: #d1d5db;
+      border: 1px solid #374151;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+    .cat-btn.active {
+      background: #dc2626;
+      color: #fff;
+      border-color: #dc2626;
+      font-weight: 600;
+    }
+    .search-box {
+      padding: 8px 10px;
+      background: #111827;
+    }
+    .search-box input {
+      width: 100%;
+      padding: 9px 14px;
+      border-radius: 8px;
+      border: 1px solid #374151;
+      background: #1f2937;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+    }
+    .channel-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 10px;
+      align-content: start;
+    }
+    .channel-card {
+      background: #161f30;
+      border: 1px solid #26334d;
+      border-radius: 10px;
+      padding: 12px 8px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 75px;
+    }
+    .channel-card:active, .channel-card.active {
+      border-color: #ef4444;
+      background: #231a24;
+      transform: scale(0.98);
+    }
+    .channel-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: #f3f4f6;
+      margin-bottom: 4px;
+    }
+    .channel-cat {
+      font-size: 11px;
+      color: #9ca3af;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>🇹🇷 CENNET VATAN TV</h1>
+    <span class="live-badge" id="statusText">CANLI YAYIN</span>
+  </header>
+
+  <div class="player-wrapper">
+    <video id="videoPlayer" controls autoplay playsinline></video>
+  </div>
+
+  <div class="search-box">
+    <input type="text" id="searchInput" placeholder="Kanal ara..." oninput="filterChannels()">
+  </div>
+
+  <div class="controls-bar" id="categoryBar">
+    <button class="cat-btn active" onclick="setCategory('Tümü', this)">Tümü</button>
+    <button class="cat-btn" onclick="setCategory('Ulusal', this)">Ulusal</button>
+    <button class="cat-btn" onclick="setCategory('Haber', this)">Haber</button>
+    <button class="cat-btn" onclick="setCategory('Spor', this)">Spor</button>
+    <button class="cat-btn" onclick="setCategory('Belgesel', this)">Belgesel</button>
+  </div>
+
+  <div class="channel-list" id="channelList"></div>
+
+  <script>
+    const channels = [
+      { name: "TRT 1", category: "Ulusal", url: "https://tv-trt1.medya.trt.com.tr/master.m3u8" },
+      { name: "TRT Haber", category: "Haber", url: "https://tv-trthaber.medya.trt.com.tr/master.m3u8" },
+      { name: "TRT Spor", category: "Spor", url: "https://tv-trtspor1.medya.trt.com.tr/master.m3u8" },
+      { name: "TRT Belgesel", category: "Belgesel", url: "https://tv-trtbelgesel.medya.trt.com.tr/master.m3u8" },
+      { name: "TRT Çocuk", category: "Ulusal", url: "https://tv-trtcocuk.medya.trt.com.tr/master.m3u8" },
+      { name: "TRT Müzik", category: "Ulusal", url: "https://tv-trtmuzik.medya.trt.com.tr/master.m3u8" },
+      { name: "TRT Türk", category: "Ulusal", url: "https://tv-trtturk.medya.trt.com.tr/master.m3u8" },
+      { name: "TRT Avaz", category: "Ulusal", url: "https://tv-trtavaz.medya.trt.com.tr/master.m3u8" },
+      { name: "TRT Kurdi", category: "Ulusal", url: "https://tv-trtkurdi.medya.trt.com.tr/master.m3u8" }
+    ];
+
+    let currentCategory = 'Tümü';
+    const video = document.getElementById('videoPlayer');
+    const statusText = document.getElementById('statusText');
+    let hls = null;
+
+    function renderChannels() {
+      const search = document.getElementById('searchInput').value.toLowerCase();
+      const list = document.getElementById('channelList');
+      list.innerHTML = '';
+
+      channels.forEach((ch, index) => {
+        const matchCat = currentCategory === 'Tümü' || ch.category === currentCategory;
+        const matchSearch = ch.name.toLowerCase().includes(search);
+
+        if (matchCat && matchSearch) {
+          const card = document.createElement('div');
+          card.className = 'channel-card';
+          card.innerHTML = `
+            <div class="channel-name">${ch.name}</div>
+            <div class="channel-cat">${ch.category}</div>
+          `;
+          card.onclick = () => playChannel(ch, card);
+          list.appendChild(card);
+        }
+      });
+    }
+
+    function setCategory(cat, btn) {
+      currentCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderChannels();
+    }
+
+    function filterChannels() {
+      renderChannels();
+    }
+
+    function playChannel(channel, cardElement) {
+      document.querySelectorAll('.channel-card').forEach(c => c.classList.remove('active'));
+      if (cardElement) cardElement.classList.add('active');
+      statusText.innerText = channel.name;
+
+      if (Hls.isSupported()) {
+        if (hls) hls.destroy();
+        hls = new Hls();
+        hls.loadSource(channel.url);
+        hls.attachMedia(video);
+        hls.on(Hls.Events.MANIFEST_PARSED, () => {
+          video.play().catch(() => {});
+        });
+      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+        video.src = channel.url;
+        video.addEventListener('loadedmetadata', () => {
+          video.play().catch(() => {});
+        });
+      }
+    }
+
+    renderChannels();
+    if (channels.length > 0) {
+      playChannel(channels[0], document.querySelector('.channel-card'));
+    }
+  </script>
+</body>
+</html>
