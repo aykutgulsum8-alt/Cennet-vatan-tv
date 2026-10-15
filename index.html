@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cennet Vatan TV & Radyo</title>
+    <title>Cennet Vatan TV</title>
     <style>
         body {
             background-color: #0f172a;
@@ -105,7 +105,7 @@
     
     <!-- Oynatıcı Alanı -->
     <div class="video-container" id="playerBox">
-        <iframe id="videoPlayer" src="https://tv.roket.live/embed.php?stream=trt1" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        <iframe id="videoPlayer" src="https://www.youtube.com/embed/live_stream?channel=UCTRT1" allowfullscreen allow="autoplay; encrypted-media"></iframe>
     </div>
 
     <!-- Kategori Butonları -->
@@ -122,49 +122,49 @@
     <!-- Kanal Listesi -->
     <div class="channels-grid" id="channelList">
         <!-- ULUSAL -->
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://tv.roket.live/embed.php?stream=trt1', 'video')">
+        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRT1', 'video')">
             <h3>TRT 1</h3>
             <p>Ulusal</p>
         </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://tv.roket.live/embed.php?stream=showtv', 'video')">
+        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=ShowTV', 'video')">
             <h3>SHOW TV</h3>
             <p>Ulusal</p>
         </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://tv.roket.live/embed.php?stream=kanald', 'video')">
+        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=KanalD', 'video')">
             <h3>Kanal D</h3>
             <p>Ulusal</p>
         </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://tv.roket.live/embed.php?stream=startv', 'video')">
+        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=StarTV', 'video')">
             <h3>Star TV</h3>
             <p>Ulusal</p>
         </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://tv.roket.live/embed.php?stream=atv', 'video')">
+        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=AtvTurkiye', 'video')">
             <h3>ATV</h3>
             <p>Ulusal</p>
         </div>
-        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://tv.roket.live/embed.php?stream=fox', 'video')">
+        <div class="channel-card" data-cat="ulusal" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=NowTurkiye', 'video')">
             <h3>NOW TV</h3>
             <p>Ulusal</p>
         </div>
 
         <!-- HABER -->
-        <div class="channel-card section-hidden" data-cat="haber" onclick="playStream('https://tv.roket.live/embed.php?stream=trthaber', 'video')">
+        <div class="channel-card section-hidden" data-cat="haber" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTHaber', 'video')">
             <h3>TRT Haber</h3>
             <p>Haber</p>
         </div>
-        <div class="channel-card section-hidden" data-cat="haber" onclick="playStream('https://tv.roket.live/embed.php?stream=cnnturk', 'video')">
+        <div class="channel-card section-hidden" data-cat="haber" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=CNNTURK', 'video')">
             <h3>CNN Türk</h3>
             <p>Haber</p>
         </div>
 
         <!-- SPOR -->
-        <div class="channel-card section-hidden" data-cat="spor" onclick="playStream('https://tv.roket.live/embed.php?stream=trtspor', 'video')">
+        <div class="channel-card section-hidden" data-cat="spor" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTSpor', 'video')">
             <h3>TRT Spor</h3>
             <p>Spor</p>
         </div>
 
         <!-- BELGESEL -->
-        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playStream('https://tv.roket.live/embed.php?stream=trtbelgesel', 'video')">
+        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTBelgesel', 'video')">
             <h3>TRT Belgesel</h3>
             <p>Belgesel</p>
         </div>
@@ -174,11 +174,11 @@
         </div>
 
         <!-- ÇOCUK -->
-        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://tv.roket.live/embed.php?stream=trtcocuk', 'video')">
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTCocuk', 'video')">
             <h3>TRT Çocuk</h3>
             <p>Çocuk TV</p>
         </div>
-        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://tv.roket.live/embed.php?stream=minikago', 'video')">
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=MinikaCocukk', 'video')">
             <h3>Minika Go</h3>
             <p>Çocuk TV</p>
         </div>
@@ -196,7 +196,7 @@
         </div>
 
         <!-- MÜZİK -->
-        <div class="channel-card section-hidden" data-cat="muzik" onclick="playStream('https://tv.roket.live/embed.php?stream=trtmuzik', 'video')">
+        <div class="channel-card section-hidden" data-cat="muzik" onclick="playStream('https://www.youtube.com/embed/live_stream?channel=TRTMuzik', 'video')">
             <h3>TRT Müzik</h3>
             <p>Müzik</p>
         </div>
