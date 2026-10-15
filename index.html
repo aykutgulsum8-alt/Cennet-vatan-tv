@@ -105,13 +105,12 @@
     
     <!-- Oynatıcı Alanı -->
     <div class="video-container" id="playerBox">
-        <iframe id="videoPlayer" src="https://www.youtube.com/embed/jfKfPfyJRdk" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+        <iframe id="videoPlayer" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1" allowfullscreen allow="autoplay; encrypted-media"></iframe>
     </div>
 
     <!-- Kategori Butonları -->
     <div class="categories">
         <button class="cat-btn active" onclick="filterCategory('cocuk')">Çocuk</button>
-        <button class="cat-btn" onclick="filterCategory('haber')">Haber</button>
         <button class="cat-btn" onclick="filterCategory('belgesel')">Belgesel & Doğa 4K</button>
         <button class="cat-btn" onclick="filterCategory('muzik')">Müzik & Radyo</button>
     </div>
@@ -119,37 +118,27 @@
     <!-- Kanal Listesi -->
     <div class="channels-grid" id="channelList">
         <!-- ÇOCUK -->
-        <div class="channel-card" data-cat="cocuk" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL_Xv9v8v7v6v5v4v3v2v1', 'video')">
-            <h3>Niloya Çizgi Filmleri</h3>
-            <p>Kesintisiz Çocuk</p>
+        <div class="channel-card" data-cat="cocuk" onclick="playMedia('https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1', 'video')">
+            <h3>Çocuk Animasyon</h3>
+            <p>Eğlenceli İçerik</p>
         </div>
-        <div class="channel-card" data-cat="cocuk" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL-x5_8v7v6v5v4v3v2v1', 'video')">
-            <h3>Maşa ile Koca Ayı</h3>
-            <p>Eğlenceli Bölümler</p>
-        </div>
-        <div class="channel-card" data-cat="cocuk" onclick="playMedia('https://www.youtube.com/embed/videoseries?list=PL_KirmiziBalik', 'video')">
-            <h3>Çocuk Şarkıları & Masallar</h3>
-            <p>Eğitici Müzikler</p>
-        </div>
-
-        <!-- HABER -->
-        <div class="channel-card section-hidden" data-cat="haber" onclick="playMedia('https://www.youtube.com/embed/live_stream?channel=UCTRT1', 'video')">
-            <h3>TRT Haber</h3>
-            <p>Canlı Haber</p>
+        <div class="channel-card" data-cat="cocuk" onclick="playMedia('https://www.youtube.com/embed/5qap5aO4i9A?autoplay=1', 'video')">
+            <h3>Sevimli Masallar</h3>
+            <p>Çizgi Film Dünyası</p>
         </div>
 
         <!-- BELGESEL & DOĞA 4K -->
-        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playMedia('https://www.youtube.com/embed/jfKfPfyJRdk', 'video')">
-            <h3>Lofi 4K Doğa & Yaşam</h3>
-            <p>4K Sakinleştirici Doğa</p>
+        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playMedia('https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1', 'video')">
+            <h3>4K Doğa Manzaraları</h3>
+            <p>Sakinleştirici Doğa</p>
         </div>
-        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playMedia('https://www.youtube.com/embed/1la4QzGeaaQ', 'video')">
-            <h3>Earth 4K Doğa Kamerası</h3>
-            <p>4K Canlı Manzara</p>
+        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playMedia('https://www.youtube.com/embed/1la4QzGeaaQ?autoplay=1', 'video')">
+            <h3>Dünya Kameraları</h3>
+            <p>Canlı 4K Manzara</p>
         </div>
 
         <!-- MÜZİK & RADYO -->
-        <div class="channel-card section-hidden" data-cat="muzik" onclick="playMedia('https://www.youtube.com/embed/jfKfPfyJRdk', 'video')">
+        <div class="channel-card section-hidden" data-cat="muzik" onclick="playMedia('https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1', 'video')">
             <h3>Lofi Hip Hop Radio</h3>
             <p>Kesintisiz Müzik</p>
         </div>
