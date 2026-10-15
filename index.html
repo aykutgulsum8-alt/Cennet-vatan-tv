@@ -1,243 +1,245 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Cennet Vatan TV</title>
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background-color: #0b0e14;
-      color: #ffffff;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      display: flex;
-      flex-direction: column;
-      height: 100vh;
-      overflow: hidden;
-    }
-    header {
-      background: linear-gradient(90deg, #b91c1c, #7f1d1d);
-      padding: 12px 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.6);
-      z-index: 10;
-    }
-    header h1 {
-      font-size: 18px;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-    .live-badge {
-      background: #ef4444;
-      color: white;
-      padding: 4px 8px;
-      border-radius: 4px;
-      font-size: 11px;
-      font-weight: bold;
-      animation: pulse 1.5s infinite;
-    }
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
-    .player-wrapper {
-      width: 100%;
-      background: #000;
-      position: relative;
-      aspect-ratio: 16 / 9;
-      max-height: 40vh;
-      flex-shrink: 0;
-      border-bottom: 2px solid #1f2937;
-    }
-    video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-    }
-    .controls-bar {
-      padding: 10px;
-      background: #111827;
-      display: flex;
-      gap: 8px;
-      overflow-x: auto;
-      flex-shrink: 0;
-      border-bottom: 1px solid #1f2937;
-    }
-    .cat-btn {
-      background: #1f2937;
-      color: #d1d5db;
-      border: 1px solid #374151;
-      padding: 6px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      white-space: nowrap;
-      cursor: pointer;
-    }
-    .cat-btn.active {
-      background: #dc2626;
-      color: #fff;
-      border-color: #dc2626;
-      font-weight: 600;
-    }
-    .search-box {
-      padding: 8px 10px;
-      background: #111827;
-    }
-    .search-box input {
-      width: 100%;
-      padding: 9px 14px;
-      border-radius: 8px;
-      border: 1px solid #374151;
-      background: #1f2937;
-      color: #fff;
-      font-size: 14px;
-      outline: none;
-    }
-    .channel-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 10px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-      gap: 10px;
-      align-content: start;
-    }
-    .channel-card {
-      background: #161f30;
-      border: 1px solid #26334d;
-      border-radius: 10px;
-      padding: 12px 8px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 75px;
-    }
-    .channel-card:active, .channel-card.active {
-      border-color: #ef4444;
-      background: #231a24;
-      transform: scale(0.98);
-    }
-    .channel-name {
-      font-size: 14px;
-      font-weight: 600;
-      color: #f3f4f6;
-      margin-bottom: 4px;
-    }
-    .channel-cat {
-      font-size: 11px;
-      color: #9ca3af;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cennet Vatan TV & Radyo</title>
+    <style>
+        body {
+            background-color: #0f172a;
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 10px;
+        }
+        h2 {
+            text-align: center;
+            color: #38bdf8;
+            margin-bottom: 15px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+        .video-container iframe, .video-container audio {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        .categories {
+            display: flex;
+            overflow-x: auto;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+        }
+        .categories::-webkit-scrollbar {
+            display: none;
+        }
+        .cat-btn {
+            background: #1e293b;
+            color: #94a3b8;
+            border: 1px solid #334155;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: 0.2s;
+        }
+        .cat-btn.active {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+        }
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .channel-card {
+            background: #1e293b;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+            border: 1px solid #334155;
+        }
+        .channel-card:active {
+            background: #334155;
+            transform: scale(0.98);
+        }
+        .channel-card h3 {
+            margin: 0 0 5px 0;
+            font-size: 16px;
+            color: #f8fafc;
+        }
+        .channel-card p {
+            margin: 0;
+            font-size: 12px;
+            color: #94a3b8;
+        }
+        .section-hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <h1>🇹🇷 CENNET VATAN TV</h1>
-    <span class="live-badge" id="statusText">CANLI YAYIN</span>
-  </header>
+<div class="container">
+    <h2>Cennet Vatan TV</h2>
+    
+    <!-- Oynatıcı Alanı -->
+    <div class="video-container" id="playerBox">
+        <iframe id="videoPlayer" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+    </div>
 
-  <div class="player-wrapper">
-    <video id="videoPlayer" controls autoplay playsinline></video>
-  </div>
+    <!-- Kategori Butonları -->
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterCategory('ulusal')">Ulusal</button>
+        <button class="cat-btn" onclick="filterCategory('haber')">Haber</button>
+        <button class="cat-btn" onclick="filterCategory('spor')">Spor</button>
+        <button class="cat-btn" onclick="filterCategory('belgesel')">Belgesel</button>
+        <button class="cat-btn" onclick="filterCategory('cocuk')">Çocuk</button>
+        <button class="cat-btn" onclick="filterCategory('muzik')">Müzik</button>
+        <button class="cat-btn" onclick="filterCategory('radyo')">Doğa & Radyo</button>
+    </div>
 
-  <div class="search-box">
-    <input type="text" id="searchInput" placeholder="Kanal ara..." oninput="filterChannels()">
-  </div>
+    <!-- Kanal Listesi -->
+    <div class="channels-grid" id="channelList">
+        <!-- ULUSAL -->
+        <div class="channel-card" data-cat="ulusal" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=trt1&controls=true', '', 'video')">
+            <h3>TRT 1</h3>
+            <p>Ulusal (Geri Sarılabilir)</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=showtv&controls=true', '', 'video')">
+            <h3>SHOW TV</h3>
+            <p>Ulusal (Geri Sarılabilir)</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=kanald&controls=true', '', 'video')">
+            <h3>Kanal D</h3>
+            <p>Ulusal (Geri Sarılabilir)</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=startv&controls=true', '', 'video')">
+            <h3>Star TV</h3>
+            <p>Ulusal (Geri Sarılabilir)</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=atv&controls=true', '', 'video')">
+            <h3>ATV</h3>
+            <p>Ulusal (Geri Sarılabilir)</p>
+        </div>
+        <div class="channel-card" data-cat="ulusal" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=fox&controls=true', '', 'video')">
+            <h3>NOW TV</h3>
+            <p>Ulusal (Geri Sarılabilir)</p>
+        </div>
 
-  <div class="controls-bar" id="categoryBar">
-    <button class="cat-btn active" onclick="setCategory('Tümü', this)">Tümü</button>
-    <button class="cat-btn" onclick="setCategory('Ulusal', this)">Ulusal</button>
-    <button class="cat-btn" onclick="setCategory('Haber', this)">Haber</button>
-    <button class="cat-btn" onclick="setCategory('Spor', this)">Spor</button>
-    <button class="cat-btn" onclick="setCategory('Belgesel', this)">Belgesel</button>
-  </div>
+        <!-- HABER -->
+        <div class="channel-card section-hidden" data-cat="haber" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=trthaber&controls=true', '', 'video')">
+            <h3>TRT Haber</h3>
+            <p>Haber</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="haber" onclick="playChannelWithBackup('https://live.demirorenmedya.com.tr/h/cnnturk/cnnturk_720p.m3u8', '', 'video')">
+            <h3>CNN Türk</h3>
+            <p>Haber</p>
+        </div>
 
-  <div class="channel-list" id="channelList"></div>
+        <!-- SPOR -->
+        <div class="channel-card section-hidden" data-cat="spor" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=trtspor&controls=true', '', 'video')">
+            <h3>TRT Spor</h3>
+            <p>Spor</p>
+        </div>
 
-  <script>
-    const channels = [
-      { name: "TRT 1", category: "Ulusal", url: "https://tv-trt1.medya.trt.com.tr/master.m3u8" },
-      { name: "TRT Haber", category: "Haber", url: "https://tv-trthaber.medya.trt.com.tr/master.m3u8" },
-      { name: "TRT Spor", category: "Spor", url: "https://tv-trtspor1.medya.trt.com.tr/master.m3u8" },
-      { name: "TRT Belgesel", category: "Belgesel", url: "https://tv-trtbelgesel.medya.trt.com.tr/master.m3u8" },
-      { name: "TRT Çocuk", category: "Ulusal", url: "https://tv-trtcocuk.medya.trt.com.tr/master.m3u8" },
-      { name: "TRT Müzik", category: "Ulusal", url: "https://tv-trtmuzik.medya.trt.com.tr/master.m3u8" },
-      { name: "TRT Türk", category: "Ulusal", url: "https://tv-trtturk.medya.trt.com.tr/master.m3u8" },
-      { name: "TRT Avaz", category: "Ulusal", url: "https://tv-trtavaz.medya.trt.com.tr/master.m3u8" },
-      { name: "TRT Kurdi", category: "Ulusal", url: "https://tv-trtkurdi.medya.trt.com.tr/master.m3u8" }
-    ];
+        <!-- BELGESEL -->
+        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=trtbelgesel&controls=true', '', 'video')">
+            <h3>TRT Belgesel</h3>
+            <p>Belgesel</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="belgesel" onclick="playChannelWithBackup('https://www.youtube.com/embed/live_stream?channel=NatGeoTurkiye', '', 'video')">
+            <h3>National Geographic</h3>
+            <p>Belgesel</p>
+        </div>
 
-    let currentCategory = 'Tümü';
-    const video = document.getElementById('videoPlayer');
-    const statusText = document.getElementById('statusText');
-    let hls = null;
+        <!-- ÇOCUK -->
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=trtcocuk&controls=true', '', 'video')">
+            <h3>TRT Çocuk</h3>
+            <p>Çocuk TV</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playChannelWithBackup('https://www.youtube.com/embed/live_stream?channel=MinikaGo', '', 'video')">
+            <h3>Minika Go</h3>
+            <p>Çocuk TV</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playChannelWithBackup('https://www.youtube.com/embed/videoseries?list=NiloyaList', '', 'video')">
+            <h3>Niloya</h3>
+            <p>Çizgi Film</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playChannelWithBackup('https://www.youtube.com/embed/videoseries?list=MasaList', '', 'video')">
+            <h3>Maşa ile Koca Ayı</h3>
+            <p>Çizgi Film</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="cocuk" onclick="playChannelWithBackup('https://www.youtube.com/embed/videoseries?list=KirmiziBalikList', '', 'video')">
+            <h3>Kırmızı Balık & Şarkılar</h3>
+            <p>Çocuk Müzik</p>
+        </div>
 
-    function renderChannels() {
-      const search = document.getElementById('searchInput').value.toLowerCase();
-      const list = document.getElementById('channelList');
-      list.innerHTML = '';
+        <!-- MÜZİK -->
+        <div class="channel-card section-hidden" data-cat="muzik" onclick="playChannelWithBackup('https://tv.roket.live/embed.php?stream=trtmuzik&controls=true', '', 'video')">
+            <h3>TRT Müzik</h3>
+            <p>Müzik</p>
+        </div>
 
-      channels.forEach((ch, index) => {
-        const matchCat = currentCategory === 'Tümü' || ch.category === currentCategory;
-        const matchSearch = ch.name.toLowerCase().includes(search);
+        <!-- RADYO & DOĞA SESLERİ -->
+        <div class="channel-card section-hidden" data-cat="radyo" onclick="playChannelWithBackup('https://stream.zeno.fm/f3wvbbqmdg8uv', '', 'audio')">
+            <h3>Orman & Kuş Sesleri</h3>
+            <p>Doğa Radyosu</p>
+        </div>
+        <div class="channel-card section-hidden" data-cat="radyo" onclick="playChannelWithBackup('https://radio.trtturk.gov.tr/master.m3u8', '', 'audio')">
+            <h3>TRT Türkü</h3>
+            <p>Radyo</p>
+        </div>
+    </div>
+</div>
 
-        if (matchCat && matchSearch) {
-          const card = document.createElement('div');
-          card.className = 'channel-card';
-          card.innerHTML = `
-            <div class="channel-name">${ch.name}</div>
-            <div class="channel-cat">${ch.category}</div>
-          `;
-          card.onclick = () => playChannel(ch, card);
-          list.appendChild(card);
+<script>
+    function playChannelWithBackup(primaryUrl, backupUrl, type) {
+        const playerBox = document.getElementById('playerBox');
+        if (type === 'video') {
+            playerBox.innerHTML = `<iframe id="videoPlayer" src="${primaryUrl}" allowfullscreen allow="autoplay; encrypted-media"></iframe>`;
+        } else {
+            playerBox.innerHTML = `<audio controls autoplay style="width:100%; height:100%; margin-top:25%;"><source src="${primaryUrl}" type="audio/mpeg">Tarayıcınız ses oynatmayı desteklemiyor.</audio>`;
         }
-      });
     }
 
-    function setCategory(cat, btn) {
-      currentCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      renderChannels();
-    }
+    function filterCategory(cat) {
+        document.querySelectorAll('.cat-btn').forEach(btn => btn.classList.remove('active'));
+        event.target.classList.add('active');
 
-    function filterChannels() {
-      renderChannels();
-    }
-
-    function playChannel(channel, cardElement) {
-      document.querySelectorAll('.channel-card').forEach(c => c.classList.remove('active'));
-      if (cardElement) cardElement.classList.add('active');
-      statusText.innerText = channel.name;
-
-      if (Hls.isSupported()) {
-        if (hls) hls.destroy();
-        hls = new Hls();
-        hls.loadSource(channel.url);
-        hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED, () => {
-          video.play().catch(() => {});
+        document.querySelectorAll('.channel-card').forEach(card => {
+            if (card.getAttribute('data-cat') === cat) {
+                card.classList.remove('section-hidden');
+            } else {
+                card.classList.add('section-hidden');
+            }
         });
-      } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-        video.src = channel.url;
-        video.addEventListener('loadedmetadata', () => {
-          video.play().catch(() => {});
-        });
-      }
     }
 
-    renderChannels();
-    if (channels.length > 0) {
-      playChannel(channels[0], document.querySelector('.channel-card'));
-    }
-  </script>
+    window.onload = function() {
+        playChannelWithBackup('https://tv.roket.live/embed.php?stream=trt1&controls=true', '', 'video');
+    };
+</script>
+
 </body>
 </html>
